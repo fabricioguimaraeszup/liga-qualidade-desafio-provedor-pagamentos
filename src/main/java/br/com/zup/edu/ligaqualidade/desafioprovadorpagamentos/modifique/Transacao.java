@@ -16,6 +16,7 @@ public class Transacao {
     private String nomeCartao;
     private String dataPagamento;
     private String cvv;
+    private Adiantamento adiantamento;
 
 
     private Transacao(String transacaoString){
@@ -33,6 +34,18 @@ public class Transacao {
                 .map(Transacao::new)
                 .collect(Collectors.toList());
 
+    }
+
+    public String getIdTransacao() {
+        return idTransacao;
+    }
+
+    public void setAdiantamento(Adiantamento adiantamento) {
+        this.adiantamento = adiantamento;
+    }
+
+    public Adiantamento getAdiantamento() {
+        return adiantamento;
     }
 
     public String getDataPagamento() {

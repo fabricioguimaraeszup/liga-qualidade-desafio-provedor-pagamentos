@@ -34,13 +34,24 @@ public class Solucao {
 		//Solução para os testes do CenarioRecebiveisSemAdiantamento
 
 		List<Transacao> transacoes = Transacao.toList(infoTransacoes);
+
+		List<Adiantamento> adiantamentos = Adiantamento.toList(infoAdiantamentos);
+
 		List<String[]> recebiveis = new ArrayList<>();
 
 		transacoes.forEach(transacao -> {
 			Recebimento recebimento = transacao.getMetodoPagamento().getRecebimento();
+			adiantamentos.forEach(adiantamento -> {
+				if(adiantamento.getIdTransacao().equals(transacao.getIdTransacao())) {
+					transacao.setAdiantamento(adiantamento);
+				}
+			});
 			Recebivel recebivel = recebimento.receber(transacao);
-			recebiveis.add(new String[] {recebivel.getStatusComoString(), String.valueOf(recebivel.getValorOriginal()),String.valueOf(recebivel.getValorComDesconto()),
-					recebivel.getDataRecebimento()});
+
+			recebiveis.add(new String[] {recebivel.getStatusComoString(),
+							   String.valueOf(recebivel.getValorOriginal()),
+					 	       String.valueOf(recebivel.getValorComDesconto()),
+							   recebivel.getDataRecebimento()});
 
 		});
 
